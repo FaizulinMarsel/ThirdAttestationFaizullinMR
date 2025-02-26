@@ -1,6 +1,6 @@
 package endpoint.employee.request.post;
 
-import endpoint.main.helpers.PropertiesUtil;
+import helpers.PropertiesUtil;
 
 import java.util.Properties;
 

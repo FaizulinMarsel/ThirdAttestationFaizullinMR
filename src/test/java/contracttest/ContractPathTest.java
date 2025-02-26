@@ -10,7 +10,7 @@ import endpoint.employee.request.path.EmployeeRequestPath;
 import endpoint.employee.request.post.ConfigEmployeePost;
 import endpoint.employee.request.post.CreateEmployeeRequestPost;
 import endpoint.employee.request.post.EmployeeRequestPost;
-import endpoint.main.helpers.GetIncorrectData;
+import helpers.IncorrectTestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
@@ -44,7 +44,7 @@ public class ContractPathTest {
     static CreateEmployeeRequestPath createEmployeeRequestPath;
     static ConfigEmployeePath config;
     static EmployeeRequestPath employeeRequestPath;
-    static GetIncorrectData getIncorrectData;
+    static IncorrectTestData incorrectTestData;
 
     @BeforeAll
     public static void setUp() throws SQLException {
@@ -54,7 +54,7 @@ public class ContractPathTest {
         auth = new Auth();
         employeeRequestPath = new EmployeeRequestPath();
         config = ConfigEmployeePath.getInstance();
-        getIncorrectData = new GetIncorrectData();
+        incorrectTestData = new IncorrectTestData();
 
         tokenAdmin = auth.authAndGetTokenAdmin();
         adminLogin = auth.getAdminLogin();
@@ -101,7 +101,7 @@ public class ContractPathTest {
     @Test
     @DisplayName("Статус 500. Передан несуществующий id Employee")
     public void checkErrorStatusNonexistentIdEmployee() {
-        incorrectEmployeeId = getIncorrectData.getIncorrectEmployeeId();
+        incorrectEmployeeId = incorrectTestData.getIncorrectEmployeeId();
         sendPatchRequest(incorrectEmployeeId, createEmployeeRequestPath, tokenAdmin)
                 .then()
                 .statusCode(500)
@@ -111,7 +111,7 @@ public class ContractPathTest {
     @Test
     @DisplayName("Статус 401. Неверный токен")
     public void checkNonexistentUserToken() {
-        nonexistentUserToken = getIncorrectData.getIncorrectUserToken();
+        nonexistentUserToken = incorrectTestData.getIncorrectUserToken();
         sendPatchRequest(employeeId, createEmployeeRequestPath, nonexistentUserToken)
                 .then()
                 .statusCode(401);
@@ -120,7 +120,7 @@ public class ContractPathTest {
     @Test
     @DisplayName("Статус 400. Передан пустой lastName")
     public void checkNullLastName() {
-        lastName = getIncorrectData.getIncorrectLastName();
+        lastName = incorrectTestData.getIncorrectLastName();
         createEmployeeRequestPath = employeeRequestPath.createRequestPath(lastName, email, url, phone, isActive);
         sendPatchRequest(employeeId, createEmployeeRequestPath, tokenAdmin)
                 .then()
@@ -130,7 +130,7 @@ public class ContractPathTest {
     @Test
     @DisplayName("Статус 400. Передан некорректный email")
     public void checkNonexistentEmailErrorStatus() {
-        email = getIncorrectData.getIncorrectEmail();
+        email = incorrectTestData.getIncorrectEmail();
         createEmployeeRequestPath = employeeRequestPath.createRequestPath(lastName, email, url, phone, isActive);
         sendPatchRequest(employeeId, createEmployeeRequestPath, tokenAdmin)
                 .then()

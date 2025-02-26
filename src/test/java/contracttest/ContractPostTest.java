@@ -7,7 +7,7 @@ import endpoint.auth.Auth;
 import endpoint.employee.request.post.ConfigEmployeePost;
 import endpoint.employee.request.post.CreateEmployeeRequestPost;
 import endpoint.employee.request.post.EmployeeRequestPost;
-import endpoint.main.helpers.GetIncorrectData;
+import helpers.IncorrectTestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
@@ -27,7 +27,7 @@ public class ContractPostTest {
     static String adminLogin;
     static int companyId;
     static String employeeEmail;
-    static GetIncorrectData getIncorrectData;
+    static IncorrectTestData incorrectTestData;
     static ConnectionDataBase connectionDataBase;
     static UserAdmin userAdmin;
     static Auth auth;
@@ -40,7 +40,7 @@ public class ContractPostTest {
         workCompanyDb = new WorkCompanyDb(connectionDataBase.getConnection());
         userAdmin = new UserAdmin(connectionDataBase.getConnection());
         auth = new Auth();
-        getIncorrectData = new GetIncorrectData();
+        incorrectTestData = new IncorrectTestData();
 
         tokenAdmin = auth.authAndGetTokenAdmin();
         adminLogin = auth.getAdminLogin();
@@ -63,7 +63,7 @@ public class ContractPostTest {
     @Test
     @DisplayName("Статус 401. Передача неверного токена")
     public void nonexistentUserToken() {
-        nonexistentUserToken = getIncorrectData.getIncorrectUserToken();
+        nonexistentUserToken = incorrectTestData.getIncorrectUserToken();
         Response response = sendPostRequest(bodyRequest, nonexistentUserToken);
         response.then().statusCode(401);
     }
@@ -71,7 +71,7 @@ public class ContractPostTest {
     @Test
     @DisplayName("Статус 400. Неверный e-mail")
     public void nonexistentEmail() {
-        incorrectEmployeeEmail = getIncorrectData.getIncorrectEmail();
+        incorrectEmployeeEmail = incorrectTestData.getIncorrectEmail();
         bodyRequest = EmployeeRequestPost.getEmployeeRequest(companyId, incorrectEmployeeEmail);
         Response response = sendPostRequest(bodyRequest, tokenAdmin);
         response.then().statusCode(400);
@@ -80,7 +80,7 @@ public class ContractPostTest {
     @Test
     @DisplayName("Статус 400. Сломанный JSON")
     public void brokenJson() {
-        incorrectEmployeeEmail = getIncorrectData.getBrokenJson();
+        incorrectEmployeeEmail = incorrectTestData.getBrokenJson();
         bodyRequest = EmployeeRequestPost.getEmployeeRequest(companyId, incorrectEmployeeEmail);
         Response response = sendPostRequest(bodyRequest, tokenAdmin);
         response.then().statusCode(400);
@@ -89,7 +89,7 @@ public class ContractPostTest {
     @Test
     @DisplayName("Статус 500. Передача несуществующего id компании")
     public void nonexistentCompanyId() {
-        nonexistentId = getIncorrectData.getIncorrectCompanyId();
+        nonexistentId = incorrectTestData.getIncorrectCompanyId();
         bodyRequest = EmployeeRequestPost.getEmployeeRequest(nonexistentId, employeeEmail);
         Response response = sendPostRequest(bodyRequest, tokenAdmin);
         response.then().statusCode(500);

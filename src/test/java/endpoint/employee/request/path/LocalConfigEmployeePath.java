@@ -1,7 +1,7 @@
 package endpoint.employee.request.path;
 
 
-import endpoint.main.helpers.PropertiesUtil;
+import helpers.PropertiesUtil;
 
 import java.util.Properties;
 

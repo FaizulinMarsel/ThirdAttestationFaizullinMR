@@ -1,8 +1,8 @@
-package endpoint.main.helpers;
+package helpers;
 
 import java.util.Properties;
 
-public class GetUrl {
+public class UrlHelper {
     private static final Properties propsUrl = PropertiesUtil.readProperties();
 
     public String getUrl() {

@@ -1,6 +1,6 @@
 package db.connection;
 
-import endpoint.main.helpers.PropertiesUtil;
+import helpers.PropertiesUtil;
 
 import java.util.Properties;
 

@@ -10,7 +10,7 @@ import endpoint.employee.request.path.EmployeeRequestPath;
 import endpoint.employee.request.post.ConfigEmployeePost;
 import endpoint.employee.request.post.CreateEmployeeRequestPost;
 import endpoint.employee.request.post.EmployeeRequestPost;
-import endpoint.main.helpers.GetIncorrectData;
+import helpers.IncorrectTestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
@@ -40,7 +40,7 @@ public class BusinessPathTest {
     static CreateEmployeeRequestPath createEmployeeRequestPath;
     static ConfigEmployeePath config;
     static EmployeeRequestPath employeeRequestPath;
-    static GetIncorrectData getIncorrectData;
+    static IncorrectTestData incorrectTestData;
 
     @BeforeAll
     public static void setUp() throws SQLException {
@@ -50,7 +50,7 @@ public class BusinessPathTest {
         auth = new Auth();
         employeeRequestPath = new EmployeeRequestPath();
         config = ConfigEmployeePath.getInstance();
-        getIncorrectData = new GetIncorrectData();
+        incorrectTestData = new IncorrectTestData();
 
         tokenAdmin = auth.authAndGetTokenAdmin();
         adminLogin = auth.getAdminLogin();

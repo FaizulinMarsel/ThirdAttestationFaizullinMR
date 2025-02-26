@@ -1,8 +1,8 @@
-package endpoint.main.helpers;
+package helpers;
 
 import java.util.Properties;
 
-public class GetIncorrectData {
+public class IncorrectTestData {
     private static final Properties propsIncorrectData = PropertiesUtil.readProperties();
 
     public int getIncorrectCompanyId() {

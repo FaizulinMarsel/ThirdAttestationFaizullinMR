@@ -2,7 +2,7 @@ package endpoint.auth;
 
 import db.connection.ConnectionDataBase;
 import db.helpers.users.UserAdmin;
-import endpoint.main.helpers.GetUrl;
+import helpers.UrlHelper;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import static io.restassured.RestAssured.given;
 
 public class Auth {
-    GetUrl getUrl = new GetUrl();
+    UrlHelper urlHelper = new UrlHelper();
     static ConnectionDataBase connectionDataBase;
     UserAdmin userAdmin;
     AuthRequest authRequest;
@@ -30,7 +30,7 @@ public class Auth {
 
     public String authAndGetTokenAdmin() throws SQLException {
         connection();
-        RestAssured.baseURI = getUrl.getUrl();
+        RestAssured.baseURI = urlHelper.getUrl();
         AuthResponse authResponse = given()
                 .basePath("auth/login")
                 .body(authRequest)

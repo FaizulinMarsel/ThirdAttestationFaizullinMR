@@ -9,7 +9,7 @@ import endpoint.employee.request.path.EmployeeRequestPath;
 import endpoint.employee.request.post.ConfigEmployeePost;
 import endpoint.employee.request.post.CreateEmployeeRequestPost;
 import endpoint.employee.request.post.EmployeeRequestPost;
-import endpoint.main.helpers.GetIncorrectData;
+import helpers.IncorrectTestData;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
@@ -36,7 +36,7 @@ public class ContractGetTest {
     static CreateEmployeeRequestPost bodyRequest;
     static ConfigEmployeePath config;
     static EmployeeRequestPath employeeRequestPath;
-    static GetIncorrectData getIncorrectData;
+    static IncorrectTestData incorrectTestData;
 
     @BeforeAll
     public static void setUp() throws SQLException {
@@ -46,7 +46,7 @@ public class ContractGetTest {
         auth = new Auth();
         employeeRequestPath = new EmployeeRequestPath();
         config = ConfigEmployeePath.getInstance();
-        getIncorrectData = new GetIncorrectData();
+        incorrectTestData = new IncorrectTestData();
 
         tokenAdmin = auth.authAndGetTokenAdmin();
         adminLogin = auth.getAdminLogin();
@@ -71,7 +71,7 @@ public class ContractGetTest {
     @Test
     @DisplayName("Статус 200. Несуществующий id")
     public void checkNonexistentEmployeeId() {
-        incorrectEmployeeId = getIncorrectData.getIncorrectEmployeeId();
+        incorrectEmployeeId = incorrectTestData.getIncorrectEmployeeId();
         System.out.println(incorrectEmployeeId);
         sendGetRequestEmployeeId(incorrectEmployeeId)
                 .then()
@@ -103,7 +103,7 @@ public class ContractGetTest {
     @Test
     @DisplayName("Статус 200. Несуществующий id")
     public void checkNonexistentCompanyId() {
-        incorrectCompanyId = getIncorrectData.getIncorrectCompanyId();
+        incorrectCompanyId = incorrectTestData.getIncorrectCompanyId();
         System.out.println(incorrectCompanyId);
         sendGetRequestCompanyId(incorrectCompanyId)
                 .then()
